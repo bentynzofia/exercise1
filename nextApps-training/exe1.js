@@ -118,19 +118,23 @@ const findIndexByName = (object, firstName, lastName) => {
 };
 
 //1.a
-Users[findIndexByName(DATA, "Griffy", "Bothie")].departmentChange("HR");
+let index = findIndexByName(DATA, "Griffy", "Bothie");
+Users[index].departmentChange("HR");
 
 //1.b
-Users.splice(findIndexByName(DATA, "Monti", "Kenealy"), 1);
-
+const deleteUser = (object) => {
+  let index = findIndexByName(object, firstName, lastName);
+  object.splice(index, 1);
+};
 //1.c
-Users.push(new User("Zosia", "Bentyn", "HR", null, "$200", false));
-
+const addUser = (object, firstName, lastName, department, iban, salary, payInsurance) => {
+  object.push(new User(firstName, lastName, department, iban, salary, payInsurance));
+};
 //1.d
 const Groups = Users.reduce((groups, item) => {
   const department = groups[item.department] || [];
-  department.push(item);
-  groups[item.department] = department;
+  let temp = [...department, item];
+  groups[item.department] = temp;
   return groups;
 }, {});
 
@@ -166,4 +170,4 @@ const usersWithInsuranceByDepartment = hasInsurance.reduce(
 
 
 
-console.log(usersWithInsuranceByDepartment);
+console.log(Groups);
