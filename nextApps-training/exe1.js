@@ -147,8 +147,7 @@ const insuranceSum = (object) => {
 const Departments = Users.map((x) => x.department);
 let uniqueDepartments = [...new Set(Departments)];
 
-const hasInsurance = (Users.filter((x) => x.payInsurance));
-
+const hasInsurance = Users.filter((x) => x.payInsurance);
 
 //MEDIUM
 // const FRUITS = ["banana", "apple", "orange", "banana", "orange", "apple", "apple", "orange", "orange", "banana", "orange", "banana"]
@@ -157,10 +156,13 @@ const hasInsurance = (Users.filter((x) => x.payInsurance));
 //   [fruit]: (map[fruit] || 0) + 1,
 // }), {})
 
-const usersWithInsuranceByDepartment = hasInsurance.reduce((map, user) => ({
-  ...map,
-  [user.department]: (map[user] || 0) +1,
-}), {});
+const usersWithInsuranceByDepartment = hasInsurance.reduce(
+  (map, user) => ({
+    ...map,
+    [user.department]: (map[user] || 0) + 1,
+  }),
+  {}
+);
 
 // const usersWithInsuranceByDepartment = hasInsurance.reduce((groups, user) => {
 //   let pays =  0;
