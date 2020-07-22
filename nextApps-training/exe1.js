@@ -100,20 +100,20 @@ class User {
   }
 }
 const Users = DATA.map(
-  (x) =>
+  (employee) =>
     new User(
-      x.firstName,
-      x.lastName,
-      x.department,
-      x.iban,
-      x.salary,
-      x.payInsurance
+      employee.firstName,
+      employee.lastName,
+      employee.department,
+      employee.iban,
+      employee.salary,
+      employee.payInsurance
     )
 );
 
-const findIndexByName = (object, firstName, lastName) => {
-  return object.findIndex(
-    (object) => object.firstName == firstName && object.lastName == lastName
+const findIndexByName = (users, firstName, lastName) => {
+  return users.findIndex(
+    (users) => users.firstName == firstName && users.lastName == lastName
   );
 };
 
@@ -122,36 +122,36 @@ let index = findIndexByName(DATA, "Griffy", "Bothie");
 Users[index].departmentChange("HR");
 
 //1.b
-const deleteUser = (object) => {
-  let index = findIndexByName(object, firstName, lastName);
-  object.splice(index, 1);
+const deleteUser = (users) => {
+  let index = findIndexByName(users, firstName, lastName);
+  users.splice(index, 1);
 };
 //1.c
-const addUser = (object, firstName, lastName, department, iban, salary, payInsurance) => {
-  object.push(new User(firstName, lastName, department, iban, salary, payInsurance));
+const addUser = (users, firstName, lastName, department, iban, salary, payInsurance) => {
+  users.push(new User(firstName, lastName, department, iban, salary, payInsurance));
 };
 //1.d
-const Groups = Users.reduce((groups, item) => {
-  const department = groups[item.department] || [];
-  let temp = [...department, item];
-  groups[item.department] = temp;
+const Groups = Users.reduce((groups, user) => {
+  const department = groups[user.department] || [];
+  let temp = [...department, user];
+  groups[user.department] = temp;
   return groups;
 }, {});
 
 //1.e
-const UsersWithoutIban = Users.filter((x) => !x.iban);
+const UsersWithoutIban = Users.filter((user) => !user.iban);
 
 //2.a
-const insuranceSum = (object) => {
-  const insuranceCount = object.filter((x) => x.payInsurance);
+const insuranceSum = (users) => {
+  const insuranceCount = users.filter((user) => user.payInsurance);
   return INSURANCE_COST * insuranceCount.length;
 };
 
 //2.b
-const Departments = Users.map((x) => x.department);
+const Departments = Users.map((user) => user.department);
 let uniqueDepartments = [...new Set(Departments)];
 
-const hasInsurance = Users.filter((x) => x.payInsurance);
+const hasInsurance = Users.filter((user) => user.payInsurance);
 
 //MEDIUM
 // const FRUITS = ["banana", "apple", "orange", "banana", "orange", "apple", "apple", "orange", "orange", "banana", "orange", "banana"]
