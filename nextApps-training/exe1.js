@@ -159,20 +159,11 @@ const hasInsurance = Users.filter((x) => x.payInsurance);
 const usersWithInsuranceByDepartment = hasInsurance.reduce(
   (map, user) => ({
     ...map,
-    [user.department]: (map[user] || 0) + 1,
+    [user.department]: ((map[user.department] || 0)) + INSURANCE_COST,
   }),
   {}
 );
 
-// const usersWithInsuranceByDepartment = hasInsurance.reduce((groups, user) => {
-//   let pays =  0;
-//   const department = groups[user.department] || [];
-//   if(user.payInsurance){
-//     pays+=INSURANCE_COST;
-//   }
-//   department.push(pays);
-//   groups[user.department] = department;
-//   return groups;
-// }, {});
+
 
 console.log(usersWithInsuranceByDepartment);
