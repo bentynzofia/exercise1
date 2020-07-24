@@ -99,7 +99,7 @@ class User {
     this.department = newDepartment;
   }
 }
-const Users = DATA.map(
+const users = DATA.map(
   (employee) =>
     new User(
       employee.firstName,
@@ -110,7 +110,7 @@ const Users = DATA.map(
       employee.payInsurance
     )
 );
-
+//w jednej linijce
 const findIndexByName = (users, firstName, lastName) => {
   return users.findIndex(
     (users) => users.firstName == firstName && users.lastName == lastName
@@ -127,19 +127,29 @@ const deleteUser = (users) => {
   users.splice(index, 1);
 };
 //1.c
-const addUser = (users, firstName, lastName, department, iban, salary, payInsurance) => {
-  users.push(new User(firstName, lastName, department, iban, salary, payInsurance));
+const addUser = (
+  users,
+  firstName,
+  lastName,
+  department,
+  iban,
+  salary,
+  payInsurance
+) => {
+  users.push(
+    new User(firstName, lastName, department, iban, salary, payInsurance)
+  );
 };
 //1.d
-const Groups = Users.reduce((groups, user) => {
+const groups = Users.reduce((groups, user) => {
   const department = groups[user.department] || [];
-  let temp = [...department, user];
+  const temp = [...department, user];
   groups[user.department] = temp;
   return groups;
 }, {});
 
 //1.e
-const UsersWithoutIban = Users.filter((user) => !user.iban);
+const usersWithoutIban = Users.filter((user) => !user.iban);
 
 //2.a
 const insuranceSum = (users) => {
@@ -148,26 +158,17 @@ const insuranceSum = (users) => {
 };
 
 //2.b
-const Departments = Users.map((user) => user.department);
-let uniqueDepartments = [...new Set(Departments)];
+const departments = Users.map((user) => user.department);
+const uniqueDepartments = [...new Set(Departments)];
 
-const hasInsurance = Users.filter((user) => user.payInsurance);
+const usersWithInsurance = Users.filter((user) => user.payInsurance);
 
-//MEDIUM
-// const FRUITS = ["banana", "apple", "orange", "banana", "orange", "apple", "apple", "orange", "orange", "banana", "orange", "banana"]
-// const total = FRUITS.reduce((map, fruit) => ({
-//   ...map,
-//   [fruit]: (map[fruit] || 0) + 1,
-// }), {})
-
-const usersWithInsuranceByDepartment = hasInsurance.reduce(
+const usersWithInsuranceByDepartment = usersWithInsurance.reduce(
   (map, user) => ({
     ...map,
-    [user.department]: ((map[user.department] || 0)) + INSURANCE_COST,
+    [user.department]: (map[user.department] || 0) + INSURANCE_COST,
   }),
   {}
 );
-
-
 
 console.log(Groups);
